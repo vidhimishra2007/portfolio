@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Vidhi Mishra — ML & Data Science</title>
+  
+  <style>
+    /* ── TOKENS ── */
+    :root {
+      --bg:        #0A0F1E;
+      --bg2:       #0F1629;
+      --bg3:       #141C35;
+      --violet:    #7C3AED;
+      --violet-lt: #9D5CF5;
+      --lavender:  #C4B5FD;
+      --lavender2: #EDE9FE;
+      --white:     #F8F8FF;
+      --muted:     #94A3B8;
+      --border:    rgba(124,58,237,0.18);
+      --card:      rgba(20,28,53,0.8);
+      --glow:      0 0 40px rgba(124,58,237,0.25);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--violet); border-radius: 2px; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 6%;
+      background: rgba(10,15,30,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--lavender);
+      letter-spacing: -0.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--lavender); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 6rem 6% 4rem;
+      gap: 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #hero::before {
+      content: '';
+      position: absolute;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(124,58,237,0.12) 0%, transparent 70%);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    .hero-text { position: relative; z-index: 1; }
+
+    .hero-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--violet-lt);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      width: 24px; height: 1px;
+      background: var(--violet-lt);
+    }
+
+    h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      color: var(--white);
+      margin-bottom: 0.4rem;
+    }
+
+    .hero-role {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.2rem, 2.5vw, 1.7rem);
+      font-weight: 400;
+      color: var(--lavender);
+      margin-bottom: 1.6rem;
+      letter-spacing: -0.01em;
+    }
+
+    .hero-summary {
+      color: var(--muted);
+      font-size: 0.975rem;
+      max-width: 480px;
+      line-height: 1.75;
+      margin-bottom: 2.4rem;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--violet);
+      color: #fff;
+      padding: 0.75rem 1.6rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 0 0 0 rgba(124,58,237,0.4);
+    }
+
+    .btn-primary:hover {
+      background: var(--violet-lt);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 24px rgba(124,58,237,0.35);
+    }
+
+    .btn-ghost {
+      border: 1px solid var(--border);
+      color: var(--lavender);
+      padding: 0.75rem 1.6rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: border-color 0.2s, color 0.2s, transform 0.15s;
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--violet);
+      color: var(--white);
+      transform: translateY(-1px);
+    }
+
+    .hero-meta {
+      margin-top: 2rem;
+      display: flex;
+      gap: 1.6rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-meta a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.825rem;
+      font-family: 'JetBrains Mono', monospace;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: color 0.2s;
+    }
+
+    .hero-meta a:hover { color: var(--lavender); }
+
+    /* ── HERO VISUAL ── */
+    .hero-visual {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .profile-pic-wrapper {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Spinning gradient ring */
+    .profile-pic-wrapper::before {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: 50%;
+      background: conic-gradient(var(--violet), var(--lavender), var(--violet));
+      z-index: -1;
+      animation: spin 6s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .profile-placeholder {
+      width: 190px;
+      height: 190px;
+      border-radius: 50%;
+      background: var(--bg3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      text-align: center;
+      padding: 1.2rem;
+    }
+
+    .profile-placeholder p {
+      color: var(--lavender);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 500;
+      margin: 0;
+    }
+
+    .profile-placeholder span {
+      color: var(--muted);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem;
+      line-height: 1.5;
+    }
+
+    /* When you swap in a real <img class="profile-img"> it picks these up */
+    .profile-img {
+      width: 260px;
+      height: 320px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    #neural-canvas {
+      width: 100%;
+      max-width: 380px;
+      height: 320px;
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      padding: 6rem 6%;
+    }
+
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--violet-lt);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .section-label::before {
+      content: '';
+      width: 20px; height: 1px;
+      background: var(--violet-lt);
+    }
+
+    h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      margin-bottom: 3rem;
+      color: var(--white);
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .about-text p {
+      color: var(--muted);
+      font-size: 0.975rem;
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+
+    .about-text p:last-child { margin-bottom: 0; }
+
+    .about-text strong { color: var(--lavender); font-weight: 500; }
+
+    .edu-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.8rem;
+      backdrop-filter: blur(8px);
+    }
+
+    .edu-card h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 0.3rem;
+    }
+
+    .edu-card .degree {
+      font-size: 0.875rem;
+      color: var(--lavender);
+      margin-bottom: 0.5rem;
+    }
+
+    .edu-card .year {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.775rem;
+      color: var(--muted);
+      margin-bottom: 1.2rem;
+    }
+
+    .course-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .tag {
+      background: rgba(124,58,237,0.12);
+      border: 1px solid rgba(124,58,237,0.22);
+      color: var(--lavender);
+      font-size: 0.75rem;
+      padding: 0.25rem 0.65rem;
+      border-radius: 100px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .learning-list {
+      margin-top: 1.6rem;
+      list-style: none;
+    }
+
+    .learning-list li {
+      color: var(--muted);
+      font-size: 0.875rem;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+
+    .learning-list li:last-child { border-bottom: none; }
+
+    .learning-list li::before {
+      content: '→';
+      color: var(--violet-lt);
+      font-family: 'JetBrains Mono', monospace;
+      flex-shrink: 0;
+    }
+
+    /* ── SKILLS ── */
+    #skills { background: var(--bg); }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.4rem;
+    }
+
+    .skill-group {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.6rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .skill-group:hover {
+      border-color: rgba(124,58,237,0.45);
+      box-shadow: var(--glow);
+    }
+
+    .skill-group-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--violet-lt);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .skill-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .pill {
+      background: rgba(196,181,253,0.07);
+      color: var(--lavender2);
+      font-size: 0.8rem;
+      padding: 0.3rem 0.75rem;
+      border-radius: 4px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+    }
+
+    /* ── PROJECTS ── */
+    #projects { background: var(--bg2); }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 1.8rem;
+    }
+
+    .project-card {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      transition: border-color 0.25s, transform 0.2s, box-shadow 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--violet), var(--lavender));
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+
+    .project-card:hover {
+      border-color: rgba(124,58,237,0.4);
+      transform: translateY(-4px);
+      box-shadow: var(--glow);
+    }
+
+    .project-card:hover::before { opacity: 1; }
+
+    .project-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+    }
+
+    .project-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--white);
+      line-height: 1.3;
+    }
+
+    .project-date {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--muted);
+      white-space: nowrap;
+      margin-left: 1rem;
+      padding-top: 0.1rem;
+    }
+
+    .project-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .stack-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--violet-lt);
+      background: rgba(124,58,237,0.1);
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+    }
+
+    .project-bullets {
+      list-style: none;
+      margin-bottom: 1.4rem;
+    }
+
+    .project-bullets li {
+      color: var(--muted);
+      font-size: 0.875rem;
+      line-height: 1.65;
+      padding: 0.35rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      padding-left: 1rem;
+      position: relative;
+    }
+
+    .project-bullets li:last-child { border-bottom: none; }
+
+    .project-bullets li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--violet-lt);
+      font-size: 0.7rem;
+      top: 0.5rem;
+    }
+
+    .project-link {
+      color: var(--violet-lt);
+      text-decoration: none;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.775rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: color 0.2s;
+    }
+
+    .project-link:hover { color: var(--lavender); }
+
+    /* ── ONGOING ── */
+    #ongoing { background: var(--bg); }
+
+    .ongoing-inner {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2.4rem;
+      max-width: 780px;
+    }
+
+    .ongoing-inner h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--lavender);
+      margin-bottom: 1rem;
+    }
+
+    .resource-list {
+      list-style: none;
+      margin-bottom: 2rem;
+    }
+
+    .resource-list li {
+      color: var(--muted);
+      font-size: 0.9rem;
+      padding: 0.55rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      gap: 0.5rem;
+      align-items: flex-start;
+    }
+
+    .resource-list li:last-child { border-bottom: none; }
+
+    .resource-list li::before {
+      content: '⟐';
+      color: var(--violet-lt);
+      flex-shrink: 0;
+    }
+
+    .milestone-box {
+      background: rgba(124,58,237,0.1);
+      border: 1px solid rgba(124,58,237,0.25);
+      border-radius: 8px;
+      padding: 1.2rem 1.4rem;
+    }
+
+    .milestone-box p {
+      color: var(--lavender2);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .milestone-box strong {
+      color: var(--white);
+      font-weight: 600;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+
+    #contact h2 { margin-bottom: 1rem; }
+
+    .contact-sub {
+      color: var(--muted);
+      font-size: 0.975rem;
+      max-width: 440px;
+      margin: 0 auto 2.4rem;
+    }
+
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+    }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.7rem 1.3rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--lavender);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 500;
+      transition: border-color 0.2s, background 0.2s, transform 0.15s;
+    }
+
+    .contact-link:hover {
+      border-color: var(--violet);
+      background: rgba(124,58,237,0.1);
+      transform: translateY(-2px);
+    }
+
+    footer {
+      padding: 1.8rem 6%;
+      text-align: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── REVEAL ANIMATION ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      #hero { grid-template-columns: 1fr; padding-top: 7rem; }
+      .hero-visual { display: none; }
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .nav-links { display: none; }
+      section { padding: 4rem 5%; }
+      h2 { font-size: 1.8rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      * { animation-duration: 0.01ms !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <span class="nav-logo">VM</span>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#ongoing">Learning</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-text">
+      <p class="hero-eyebrow">IIT Patna · CS & Data Analytics</p>
+      <h1>Vidhi Mishra</h1>
+      <p class="hero-role">Machine Learning &amp; Data Science</p>
+      <p class="hero-summary">
+        Building end-to-end ML pipelines, training and comparing models, and 
+        deploying real-world applications. Currently going deep on deep learning — 
+        CNNs, backpropagation, and neural networks from scratch.
+      </p>
+      <div class="hero-cta">
+        <a href="#projects" class="btn-primary">View Projects</a>
+        <a href="#contact" class="btn-ghost">Get in Touch</a>
+      </div>
+      <div class="hero-meta">
+        <a href="mailto:vidhi.almora2007@gmail.com">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          vidhi.almora2007@gmail.com
+        </a>
+        <a href="https://github.com/vidhimishra2007" target="_blank" rel="noopener">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0 0 22 12.017C22 6.484 17.522 2 12 2Z"/></svg>
+          vidhimishra2007
+        </a>
+        <a href="https://www.linkedin.com/in/vidhi-mishra-3b2258303/">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          LinkedIn
+        </a>
+        <a href="#">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+          Delhi, India
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="profile-pic-wrapper">
+        
+        <img src="IMG_5249_Original.jpg" alt="Vidhi Mishra" class="profile-img" />
+      </div>
+      <canvas id="neural-canvas"></canvas>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="reveal">
+      <p class="section-label">About</p>
+      <h2>Who I Am</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>
+          I'm a <strong> Bachelor of Science in Computer Science & Data Analytics student at IIT Patna</strong>, 
+          building end-to-end ML systems on real datasets. I care about the full pipeline — 
+          from preprocessing and feature engineering to model evaluation and deployment.
+        </p>
+        <p>
+          I've trained and compared classifiers (RF, XGBoost, SVM, Decision Trees), 
+          written 30+ complex SQL queries on clinical datasets, and deployed 
+          interactive apps with Streamlit. I don't just build models — I evaluate them rigorously.
+        </p>
+        <p>
+          Currently deepening into <strong>deep learning</strong> — working through 
+          D2L, MIT 6.S191, and Stanford CS229 beyond my coursework, with a CNN project 
+          for Brain Tumor MRI Classification as my next milestone.
+        </p>
+      </div>
+      <div class="reveal">
+        <div class="edu-card">
+          <h3>Indian Institute of Technology, Patna</h3>
+          <p class="degree">Bachelor of Science Computer Science &amp; Data Analytics</p>
+          <p class="year">2024 – 2028</p>
+          <div class="course-tags">
+            <span class="tag">Data Structures</span>
+            <span class="tag">DBMS</span>
+            <span class="tag">Statistics for DS</span>
+            <span class="tag">ML Basics</span>
+          </div>
+        </div>
+
+        <ul class="learning-list" style="margin-top: 1.6rem;">
+          <li>Dive into Deep Learning (D2L)</li>
+          <li>MIT 6.S191 Deep Learning</li>
+          <li>Stanford CS229 — Linear/Logistic Regression, GLMs</li>
+          <li>CNNs, Backpropagation, Regularization</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="reveal">
+      <p class="section-label">Skills</p>
+      <h2>Technical Stack</h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-group reveal">
+        <p class="skill-group-label">Programming</p>
+        <div class="skill-pills">
+          <span class="pill">Python</span>
+          <span class="pill">SQL</span>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <p class="skill-group-label">Libraries & Frameworks</p>
+        <div class="skill-pills">
+          <span class="pill">NumPy</span>
+          <span class="pill">Pandas</span>
+          <span class="pill">Scikit-learn</span>
+          <span class="pill">Matplotlib</span>
+          <span class="pill">Streamlit</span>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <p class="skill-group-label">Machine Learning</p>
+        <div class="skill-pills">
+          <span class="pill">Classification</span>
+          <span class="pill">Regression</span>
+          <span class="pill">Model Evaluation</span>
+          <span class="pill">Feature Importance</span>
+          <span class="pill">Overfitting Analysis</span>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <p class="skill-group-label">Deep Learning</p>
+        <div class="skill-pills">
+          <span class="pill">Neural Networks</span>
+          <span class="pill">MLP</span>
+          <span class="pill">Backpropagation</span>
+          <span class="pill">LSTMs</span>
+          <span class="pill">Attention Mechanisms</span>
+          <span class="pill">Encoder-Decoder</span>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <p class="skill-group-label">Data Skills</p>
+        <div class="skill-pills">
+          <span class="pill">EDA</span>
+          <span class="pill">Preprocessing</span>
+          <span class="pill">Visualization</span>
+          <span class="pill">SQL Query Writing</span>
+          <span class="pill">Data Analysis</span>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <p class="skill-group-label">Tools</p>
+        <div class="skill-pills">
+          <span class="pill">Git</span>
+          <span class="pill">GitHub</span>
+          <span class="pill">Jupyter</span>
+          <span class="pill">Anaconda</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="reveal">
+      <p class="section-label">Projects</p>
+      <h2>What I've Built</h2>
+    </div>
+    <div class="projects-grid">
+
+      <!-- PROJECT 1 -->
+      <div class="project-card reveal">
+        <div class="project-header">
+          <p class="project-title">Diabetes Prediction System</p>
+          <span class="project-date">Mar – Jul 2025</span>
+        </div>
+        <div class="project-stack">
+          <span class="stack-tag">Python</span>
+          <span class="stack-tag">Scikit-learn</span>
+          <span class="stack-tag">Streamlit</span>
+          <span class="stack-tag">XGBoost</span>
+        </div>
+        <ul class="project-bullets">
+          <li>End-to-end ML pipeline on the Pima Indians dataset (768 records) — preprocessing, imputation, feature scaling with StandardScaler, and EDA.</li>
+          <li>Trained and compared four classifiers: Random Forest, Decision Tree, XGBoost, SVM — achieving <strong style="color: var(--lavender);">77.5% test accuracy</strong> with Random Forest.</li>
+          <li>Analyzed overfitting via train/test accuracy comparison; evaluated Accuracy, Precision, Recall, F1-score.</li>
+          <li>Investigated feature importance to identify key predictors of diabetes onset.</li>
+          <li>Deployed an interactive Streamlit app enabling real-time predictions from user input.</li>
+        </ul>
+        <a class="project-link" href="https://github.com/vidhimishra2007/diabetes-prediction" target="_blank" rel="noopener">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0 0 22 12.017C22 6.484 17.522 2 12 2Z"/></svg>
+          github.com/vidhimishra2007/diabetes-prediction
+        </a>
+      </div>
+
+      <!-- PROJECT 2 -->
+      <div class="project-card reveal">
+        <div class="project-header">
+          <p class="project-title">Health SQL Analysis</p>
+          <span class="project-date">Mar 2026</span>
+        </div>
+        <div class="project-stack">
+          <span class="stack-tag">Python</span>
+          <span class="stack-tag">SQL</span>
+          <span class="stack-tag">Matplotlib</span>
+        </div>
+        <ul class="project-bullets">
+          <li>End-to-end SQL analysis on UCI Heart Disease and NFHS-5 India datasets — 30+ complex queries.</li>
+          <li>Uncovered patterns in cholesterol, blood pressure, anaemia, and blood sugar across age groups and Indian states using JOINs, window functions, aggregations.</li>
+          <li>Visualized 10+ data-driven insights with Python/Matplotlib, bridging clinical and population-level health data.</li>
+          <li>Connected findings to measurable public health outcomes at both clinical and national scale.</li>
+        </ul>
+        <a class="project-link" href="https://github.com/vidhimishra2007/health-sql-analysis" target="_blank" rel="noopener">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0 0 22 12.017C22 6.484 17.522 2 12 2Z"/></svg>
+          github.com/vidhimishra2007/health-sql-analysis
+        </a>
+      </div>
+
+      <!-- PROJECT 3 — UPCOMING -->
+      <div class="project-card reveal" style="border-style: dashed; opacity: 0.75;">
+        <div class="project-header">
+          <p class="project-title">Brain Tumor MRI Classification</p>
+          <span class="project-date">In Progress</span>
+        </div>
+        <div class="project-stack">
+          <span class="stack-tag">PyTorch</span>
+          <span class="stack-tag">CNN</span>
+          <span class="stack-tag">Google Colab</span>
+          <span class="stack-tag">Kaggle</span>
+        </div>
+        <ul class="project-bullets">
+          <li>4-class classification: glioma, meningioma, pituitary tumor, no tumor.</li>
+          <li>7,000+ MRI images from Kaggle dataset.</li>
+          <li>CNN architecture with transfer learning — in active development.</li>
+        </ul>
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--violet-lt);">⟳ Coming soon</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ONGOING -->
+  <section id="ongoing">
+    <div class="reveal">
+      <p class="section-label">Ongoing Learning</p>
+      <h2>What's Next</h2>
+    </div>
+    <div class="ongoing-inner reveal">
+      <h3>Currently working through</h3>
+      <ul class="resource-list">
+        <li>Dive into Deep Learning (D2L)</li>
+        <li>MIT 6.S191 Deep Learning</li>
+        <li>Stanford CS229 — Linear/Logistic Regression, GLMs</li>
+      </ul>
+      <div class="milestone-box">
+        <p><strong>Next milestone:</strong> CNN implementation for Brain Tumor MRI Classification — 4-class, 7,000+ images, Kaggle dataset.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="reveal">
+      <p class="section-label">Contact</p>
+      <h2>Let's Connect</h2>
+      <p class="contact-sub">Open to ML and Data Science internship opportunities, especially in Delhi NCR. Feel free to reach out.</p>
+    </div>
+    <div class="contact-links reveal">
+      <a class="contact-link" href="mailto:vidhi.almora2007@gmail.com">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        vidhi.almora2007@gmail.com
+      </a>
+      <a class="contact-link" href="mailto:vidhi_24a12res1152@iitp.ac.in">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        IIT Patna Email
+      </a>
+      <a class="contact-link" href="https://github.com/vidhimishra2007" target="_blank" rel="noopener">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0 0 22 12.017C22 6.484 17.522 2 12 2Z"/></svg>
+        GitHub
+      </a>
+      <a class="contact-link" href="https://www.linkedin.com/in/vidhi-mishra-3b2258303/" target="_blank" rel="noopener">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        LinkedIn
+      </a>
+      <a class="contact-link" href="tel:+918810638824">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6.1 6.1l1.35-1.35a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7 2 2 0 0 1 1.72 2.01z"/></svg>
+        +91 8810638824
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    Built with HTML · Last updated June 2026 · Vidhi Mishra
+    <!-- To update: edit the HTML directly — each section is clearly labelled -->
+  </footer>
+
+  <script>
+    // ── NEURAL NET ANIMATION ──
+    const canvas = document.getElementById('neural-canvas');
+    const ctx = canvas.getContext('2d');
+
+    function resize() {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+    }
+    resize();
+    window.addEventListener('resize', () => { resize(); buildNet(); });
+
+    const VIOLET   = '#7C3AED';
+    const LAVENDER = '#C4B5FD';
+    const MUTED    = '#334155';
+
+    // layers: [input, hidden1, hidden2, output]
+    const LAYERS = [4, 5, 5, 3];
+    let nodes = [];
+    let edges = [];
+    let pulses = []; // { from, to, t, speed }
+
+    function buildNet() {
+      nodes = [];
+      edges = [];
+      const W = canvas.width;
+      const H = canvas.height;
+      const xStep = W / (LAYERS.length + 1);
+
+      LAYERS.forEach((count, li) => {
+        const x = xStep * (li + 1);
+        const yStep = H / (count + 1);
+        for (let ni = 0; ni < count; ni++) {
+          nodes.push({ x, y: yStep * (ni + 1), layer: li, idx: ni });
+        }
+      });
+
+      // Build edges between adjacent layers
+      let layerStart = 0;
+      for (let li = 0; li < LAYERS.length - 1; li++) {
+        const from = nodes.filter(n => n.layer === li);
+        const to   = nodes.filter(n => n.layer === li + 1);
+        from.forEach(f => to.forEach(t => edges.push({ f, t })));
+        layerStart += LAYERS[li];
+      }
+    }
+
+    buildNet();
+
+    // Kick off random pulses
+    function spawnPulse() {
+      const e = edges[Math.floor(Math.random() * edges.length)];
+      pulses.push({ f: e.f, t: e.t, progress: 0, speed: 0.012 + Math.random() * 0.014 });
+    }
+
+    for (let i = 0; i < 6; i++) setTimeout(spawnPulse, i * 400);
+
+    function draw(ts) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Draw edges
+      edges.forEach(({ f, t }) => {
+        ctx.beginPath();
+        ctx.moveTo(f.x, f.y);
+        ctx.lineTo(t.x, t.y);
+        ctx.strokeStyle = MUTED;
+        ctx.lineWidth = 0.8;
+        ctx.globalAlpha = 0.35;
+        ctx.stroke();
+        ctx.globalAlpha = 1;
+      });
+
+      // Draw pulses
+      pulses.forEach(p => {
+        p.progress += p.speed;
+        const px = p.f.x + (p.t.x - p.f.x) * p.progress;
+        const py = p.f.y + (p.t.y - p.f.y) * p.progress;
+        const grad = ctx.createRadialGradient(px, py, 0, px, py, 5);
+        grad.addColorStop(0, 'rgba(196,181,253,0.9)');
+        grad.addColorStop(1, 'rgba(124,58,237,0)');
+        ctx.beginPath();
+        ctx.arc(px, py, 5, 0, Math.PI * 2);
+        ctx.fillStyle = grad;
+        ctx.fill();
+      });
+
+      // Remove finished pulses, spawn new ones
+      pulses = pulses.filter(p => p.progress < 1);
+      if (pulses.length < 8) spawnPulse();
+
+      // Draw nodes
+      nodes.forEach(n => {
+        // outer glow
+        const grad = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, 10);
+        grad.addColorStop(0, 'rgba(124,58,237,0.3)');
+        grad.addColorStop(1, 'rgba(124,58,237,0)');
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, 10, 0, Math.PI * 2);
+        ctx.fillStyle = grad;
+        ctx.fill();
+
+        // node circle
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, n.layer === 0 || n.layer === LAYERS.length - 1 ? 5 : 4.5, 0, Math.PI * 2);
+        ctx.fillStyle = n.layer === 0 ? LAVENDER : n.layer === LAYERS.length - 1 ? '#A78BFA' : VIOLET;
+        ctx.fill();
+      });
+
+      requestAnimationFrame(draw);
+    }
+
+    requestAnimationFrame(draw);
+
+    // ── SCROLL REVEAL ──
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    reveals.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
